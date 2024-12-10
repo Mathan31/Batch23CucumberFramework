@@ -1,14 +1,18 @@
 package pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import utils.PropertyReader;
+
 public class EbayHome {
 	
 	private WebDriver driver;
-	public String sURL = "https://www.ebay.com/";
+	public String sURL =  PropertyReader.readDataFromPropertyFile("environment", "ebay");
 	private By productNameTxt = By.id("gh-ac");
 	private By prodCatagoryDrop = By.id("gh-cat");
 	private By searchButton = By.id("gh-btn");
@@ -20,6 +24,8 @@ public class EbayHome {
 	
 	public void navigateToEbay() {
 		driver.get(sURL);
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		}
 	
 	public void enterSearchText(String prodName) {
